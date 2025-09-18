@@ -46,8 +46,7 @@
 
 #### Данные на выход
 
-Т.к. программа должна вывести модуль максимального из получаемых чисел, то на выход мы получим
-единственное вещественное неотрицательное число, не превышающее 10<sup>9</sup>.
+Т.к. программа должна вывести решение неравенства для х относительно введённых чисел, то на выход мы получим интервал или отрезок.
 
 |         | Тип                                | min значение | max значение   |
 |---------|------------------------------------|--------------|----------------|
@@ -134,37 +133,50 @@ flowchart TD
 ### 5. Программа
 
 ```java
-import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Main {
-    // Объявляем объект класса Scanner для ввода данных
-    public static Scanner in = new Scanner(System.in);
-    // Объявляем объект класса PrintStream для вывода данных
-    public static PrintStream out = System.out;
-
+public class Lesson1 {
     public static void main(String[] args) {
-        // Считывание двух вещественных чисел x и y из консоли
-        double x = in.nextDouble();
-        double y = in.nextDouble();
+        //ввод чисел с консоли
+        Scanner scanner = new Scanner(System.in);
+        double a = scanner.nextDouble();
+        double b = scanner.nextDouble();
+        //вывод чисел
 
-        // Определение максимального числа
-        if (x >= y) {
-            // Если x положительное, выводим x, иначе выводим -x,
-            // чтобы на выходе было его абсолютное значение
-            if (x >= 0) {
-                out.println(x);
-            } else {
-                out.println(-x);
-            }
-        } else {
-            // Если x положительное, выводим y, иначе выводим -y,
-            // чтобы на выходе было его абсолютное значение
-            if (y >= 0) {
-                out.println(y);
-            } else {
-                out.println(-y);
-            }
+        //решение уравнения a*x = 0
+        int x1 = 0;
+        //решение уравнения x-b = 0
+        double x2 = b;
+
+        //если введённое число а = 0, b = 0
+        if (a == 0) {
+            System.out.println(b == 0 ? "x ∈ R \\ 0" : "x ∈ R \\ " + b);
+            return;
+        }
+        
+        else if(a > 0 && b == 0){
+            String message = "x ∈ R \\ 0";
+            System.out.println(message);
+        }
+        else if(a < 0 && b == 0){
+            String message = "x ∈ ∅";
+            System.out.println(message);
+        }
+        else if(a > 0 && b > 0){
+            String message = String.format("x ∈ (-∞; 0] U ( " + x2 + "; +∞)");
+            System.out.println(message);
+        }
+        else if(a < 0 && b < 0){
+            String message = String.format("x ∈ (" +x2 + "; 0]");
+            System.out.println(message);
+        }
+        else if(a > 0 && b < 0) {
+            String message = String.format("x ∈ (-∞; " + x2 + ") U [0; +∞)");
+            System.out.println(message);
+        }
+        else if(a < 0 && b > 0) {
+            String message = String.format("x ∈ [0; " + x2 + ")");
+            System.out.println(message);
         }
     }
 }
